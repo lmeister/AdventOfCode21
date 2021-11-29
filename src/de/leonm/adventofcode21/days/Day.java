@@ -1,7 +1,10 @@
 package de.leonm.adventofcode21.days;
 
+import de.leonm.adventofcode21.utils.Reader;
+
 public abstract class Day {
 
+    Reader reader = new Reader();
 
     abstract int partOne();
     abstract int partTwo();
