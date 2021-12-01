@@ -8,8 +8,8 @@ public class Day01 extends Day {
 
     List<Integer> input;
 
-    public Day01() throws IOException {
-        this.input = reader.getIntListFromFile("src/de/leonm/adventofcode21/inputs/Day01.txt");
+    public Day01(String path) throws IOException {
+        this.input = reader.getIntListFromFile(path);
     }
 
     @Override

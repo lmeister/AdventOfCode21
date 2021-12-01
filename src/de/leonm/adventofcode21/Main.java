@@ -9,11 +9,13 @@ public class Main {
             String dayNumberCode = String.format("%02d", i);
             System.out.println("-------- Day " + dayNumberCode + " --------");
             try {
+                Class[] cArg = {String.class};
+                String[] path = {"src/de/leonm/adventofcode21/inputs/Day" + dayNumberCode +".txt"};
                 Day day =
                     (Day)
                         Class.forName("de.leonm.adventofcode21.days.Day" + dayNumberCode)
-                            .getDeclaredConstructor()
-                            .newInstance();
+                            .getDeclaredConstructor(cArg)
+                            .newInstance(path);
                 day.printSolutions();
             } catch (ReflectiveOperationException roe) {
                 roe.printStackTrace();
