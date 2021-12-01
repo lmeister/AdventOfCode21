@@ -8,21 +8,20 @@ public class Day01 extends Day {
 
     List<Integer> input;
 
+    public Day01() throws IOException {
+        this.input = reader.getIntListFromFile("src/de/leonm/adventofcode21/inputs/Day01.txt");
+    }
+
     @Override
     int partOne() {
         int lastElement = Integer.MAX_VALUE;
         int increaseCounter = 0;
-        try {
-            input = reader.getIntListFromFile("src/de/leonm/adventofcode21/inputs/Day01.txt");
-            for (int current : input) {
+        for (int current : input) {
                 if (current > lastElement) {
                     increaseCounter++;
                 }
                 lastElement = current;
             }
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-        }
         return increaseCounter;
     }
 
