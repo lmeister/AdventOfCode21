@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Day01 extends Day {
 
-    List<Integer> input;
+    private final List<Integer> input;
 
     public Day01(String path) throws IOException {
         this.input = reader.getIntListFromFile(path);
