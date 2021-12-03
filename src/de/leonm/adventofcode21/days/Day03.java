@@ -69,6 +69,12 @@ public class Day03 extends Day {
         return copy.get(0);
     }
 
+    /**
+     * Finds the most common char at given position
+     * @param position Given position
+     * @param input List containing the strings to be checked
+     * @return Most common char at position
+     */
     private char findMostCommonCharAtPosition(int position, List<String> input) {
         Map<Character, Integer> countMap = new HashMap<>();
         for (String current : input) {
