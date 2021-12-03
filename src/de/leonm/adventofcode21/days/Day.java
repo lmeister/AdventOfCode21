@@ -6,7 +6,15 @@ public abstract class Day {
 
     protected Reader reader = new Reader();
 
+    /**
+     * Solves part one of the puzzle
+     * @return solution as Integers
+     */
     abstract int partOne();
+    /**
+     * Solves part two of the puzzle
+     * @return solution as Integers
+     */
     abstract int partTwo();
 
     public void printSolutions() {
