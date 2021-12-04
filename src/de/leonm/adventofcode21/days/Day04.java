@@ -57,16 +57,25 @@ public class Day04 extends Day {
         return -1;
     }
 
+    /**
+     * Reads input list to create a list of bingo boards.
+     * @param input The list containing the bingo boards separated by empty lines
+     * @return List of bingo board instances
+     */
     private List<BingoBoard> initializeBoards(List<String> input) {
         List<BingoBoard> boards = new ArrayList<>();
-        for (int i = 0; i < input.size(); i += BingoBoard.SIZE) {
+        // Skip the empty line and jump over the board
+        for (int i = 0; i < input.size(); i += BingoBoard.SIZE + 1) {
             boards.add(new BingoBoard(input.subList(i, i + BingoBoard.SIZE)));
-            i++; // skip the empty line
         }
 
         return boards;
     }
 
+    /**
+     * Represents a Bingo Board Object.
+     * Allows for Creation of boards, marking of numbers as well as evaluating their status.
+     */
     static class BingoBoard {
 
         private final static int SIZE = 5;
@@ -151,6 +160,9 @@ public class Day04 extends Day {
         }
 
 
+        /**
+         * Resembles a BoardNumber/Tile. Combines information of number and whether it has been drawn or not.
+         */
         static class BoardNumber {
             private final int number;
             private boolean drawn;
