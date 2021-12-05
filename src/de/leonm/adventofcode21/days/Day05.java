@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * TODO: Refactor this to use a map instead of an array to save some time
+ */
 public class Day05 extends Day {
 
     private final Pattern pattern = Pattern.compile("(?<begin>(\\d+,\\d+)) -> (?<end>(\\d+,\\d+))");
