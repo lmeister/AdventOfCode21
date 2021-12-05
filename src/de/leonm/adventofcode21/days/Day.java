@@ -18,14 +18,14 @@ public abstract class Day {
     abstract int partTwo();
 
     public void printSolutions() {
-        long prePartOne = System.currentTimeMillis();
+        long prePartOne = System.nanoTime();
         int solution = partOne();
-        long prePartTwo = System.currentTimeMillis();
-        System.out.printf("Part one solution: %1$d \n\tTime required: %2$d ms.\n",
-            solution, (prePartTwo - prePartOne));
+        long prePartTwo = System.nanoTime();
+        System.out.printf("Part one solution: %1$d \n\tTime required: %2$.2f ms.\n",
+            solution, (prePartTwo - prePartOne)/1000000.0);
         solution = partTwo();
-        long postPartTwo = System.currentTimeMillis();
-        System.out.printf("Part two solution: %1$d \n\tTime required: %2$d ms.\n",
-            solution, (postPartTwo - prePartTwo));
+        long postPartTwo = System.nanoTime();
+        System.out.printf("Part two solution: %1$d \n\tTime required: %2$.2f ms.\n",
+            solution, (postPartTwo - prePartTwo)/1000000.0);
     }
 }
