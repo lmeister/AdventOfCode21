@@ -53,31 +53,27 @@ public class Day06 extends Day {
         return getTotalFishAfterDays(256, input, 6, 8);
     }
 
-    private long getTotalFishAfterDays(int days, int[] start, int postMatingTimer, int initialTimer) {
-        Map<Integer, Long> ageAmountMap = new HashMap<>();
-        // initialize map with zeros
-        for (int i = 0; i <= initialTimer; i++) {
-            ageAmountMap.put(i, 0L);
-        }
+    private long getTotalFishAfterDays(int days, int[] start, final int postMatingTimer, final int initialTimer) {
+        // Contains the amount of fish (value) that share an internal timer (key)
+        Map<Integer, Long> ageAmountFrequencyMap = new HashMap<>();
+        // add existing fish to frequency map
+        Arrays.stream(start).forEach(internalTimer -> ageAmountFrequencyMap.merge(internalTimer, 1L, Long::sum));
 
-        for (int fishAge : start) {
-            ageAmountMap.put(fishAge, ageAmountMap.get(fishAge) + 1);
-        }
 
         for (int day = 1; day <= days; day++) {
-            // get amount of children spawned
-            long childrenSpawned = ageAmountMap.get(0);
-
-            // Decrement all timers by 1
+            // get amount of fish that spawn children
+            long fishThatSpawnChild = ageAmountFrequencyMap.getOrDefault(0, 0L);
+            // Decrement all timers by 1 and move it along in map
             for (int age = 1; age <= initialTimer; age++) {
-                ageAmountMap.put(age - 1, ageAmountMap.get(age));
+                ageAmountFrequencyMap.put(age - 1, ageAmountFrequencyMap.getOrDefault(age, 0L));
             }
-            ageAmountMap.put(postMatingTimer, ageAmountMap.get(postMatingTimer) + childrenSpawned);
-            ageAmountMap.put(initialTimer, childrenSpawned);
+            // Put Children into map and parents back into map
+            ageAmountFrequencyMap.put(postMatingTimer, ageAmountFrequencyMap.get(postMatingTimer) + fishThatSpawnChild);
+            ageAmountFrequencyMap.put(initialTimer, fishThatSpawnChild);
         }
 
         long totalFish = 0;
-        for (long fishInGeneration : ageAmountMap.values()) {
+        for (long fishInGeneration : ageAmountFrequencyMap.values()) {
             totalFish += fishInGeneration;
         }
         return totalFish;
