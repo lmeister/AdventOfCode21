@@ -1,7 +1,6 @@
 package de.leonm.adventofcode21.days;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -17,7 +16,7 @@ public class Day02 extends Day {
     }
 
     @Override
-    int partOne() {
+    long partOne() {
         int horizontal = 0;
         int vertical = 0;
 
@@ -39,11 +38,11 @@ public class Day02 extends Day {
                 }
             }
         }
-        return horizontal * vertical;
+        return (long) horizontal * vertical;
     }
 
     @Override
-    int partTwo() {
+    long partTwo() {
         int horizontal = 0;
         int vertical = 0;
         int aim = 0;
@@ -67,6 +66,6 @@ public class Day02 extends Day {
                 }
             }
         }
-        return horizontal * vertical;
+        return (long) horizontal * vertical;
     }
 }

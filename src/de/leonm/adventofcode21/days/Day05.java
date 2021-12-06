@@ -19,13 +19,13 @@ public class Day05 extends Day {
     }
 
     @Override
-    int partOne() {
+    long partOne() {
         int[][] grid = initializeVentGridNoDiagonals(1000, input);
         return countIntersections(grid);
     }
 
     @Override
-    int partTwo() {
+    long partTwo() {
         int[][] grid = initializeVentGrid(1000, input);
         //print2DArray(grid);
         return countIntersections(grid);
@@ -33,13 +33,17 @@ public class Day05 extends Day {
 
     private int countIntersections(int[][] grid) {
         int counterOfIntersections = 0;
+        int counterOfEmptySlots = 0;
         for (int[] ints : grid) {
             for (int j = 0; j < grid[0].length; j++) {
                 if (ints[j] > 1) {
                     counterOfIntersections++;
+                } else if (ints[j] == 0) {
+                    counterOfEmptySlots++;
                 }
             }
         }
+        System.out.println("Empty Slots: " + counterOfEmptySlots);
         return counterOfIntersections;
     }
 
@@ -101,7 +105,7 @@ public class Day05 extends Day {
                         grid[yOfStartingPoint][curX] = grid[yOfStartingPoint][curX] + 1;
                         if (yOfStartingPoint <= yOfEndPoint) {
                             yOfStartingPoint++;
-                        } else if (yOfStartingPoint >= yOfEndPoint) {
+                        } else {
                             yOfStartingPoint--;
                         }
                     }

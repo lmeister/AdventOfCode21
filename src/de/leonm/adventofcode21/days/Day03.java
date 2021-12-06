@@ -2,7 +2,6 @@ package de.leonm.adventofcode21.days;
 
 import java.io.IOException;
 import java.util.*;
-import java.util.function.BiPredicate;
 
 public class Day03 extends Day {
 
@@ -13,7 +12,7 @@ public class Day03 extends Day {
     }
 
     @Override
-    int partOne() {
+    long partOne() {
         // form the binary strings
         StringBuilder gammaRate = new StringBuilder();
         StringBuilder epsilonRate = new StringBuilder();
@@ -26,14 +25,14 @@ public class Day03 extends Day {
             epsilonRate.append(leastCommonBit);
         }
 
-        return Integer.parseInt(gammaRate.toString(), 2) * Integer.parseInt(epsilonRate.toString(), 2);
+        return Long.parseLong(gammaRate.toString(), 2) * Long.parseLong(epsilonRate.toString(), 2);
     }
 
     @Override
-    int partTwo() {
+    long partTwo() {
         String oxygenRating = findFinalCandidate(true, input);
         String scrubberRating = findFinalCandidate(false, input);
-        return (Integer.parseInt(oxygenRating, 2) * Integer.parseInt(scrubberRating, 2));
+        return (Long.parseLong(oxygenRating, 2) * Long.parseLong(scrubberRating, 2));
     }
 
     /**

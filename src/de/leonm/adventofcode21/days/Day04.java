@@ -20,7 +20,7 @@ public class Day04 extends Day {
     }
 
     @Override
-    int partOne() {
+    long partOne() {
         // For every drawn number, iterate through all boards and mark the number
         for (int number : drawnNumbers) {
             for (BingoBoard board : bingoBoards) {
@@ -35,7 +35,7 @@ public class Day04 extends Day {
     }
 
     @Override
-    int partTwo() {
+    long partTwo() {
         List<BingoBoard> remainingBoards = new ArrayList<>(bingoBoards); // Used to keep track of remaining boards
         List<BingoBoard> tossedBoards = new ArrayList<>(); // Used to keep track of winning boards, that will be removed
 
@@ -147,8 +147,8 @@ public class Day04 extends Day {
             }
         }
 
-        public int sumOfAllUnmarkedNumbers() {
-            int sum = 0;
+        public long sumOfAllUnmarkedNumbers() {
+            long sum = 0;
             for (int i = 0; i < SIZE; i++) {
                 for (int j = 0; j < SIZE; j++) {
                     if (!board[i][j].isDrawn()) {

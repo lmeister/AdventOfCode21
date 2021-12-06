@@ -10,16 +10,16 @@ public abstract class Day {
      * Solves part one of the puzzle
      * @return solution as Integers
      */
-    abstract int partOne();
+    abstract long partOne();
     /**
      * Solves part two of the puzzle
      * @return solution as Integers
      */
-    abstract int partTwo();
+    abstract long partTwo();
 
     public void printSolutions() {
         long prePartOne = System.nanoTime();
-        int solution = partOne();
+        long solution = partOne();
         long prePartTwo = System.nanoTime();
         System.out.printf("Part one solution: %1$d \n\tTime required: %2$.2f ms.\n",
             solution, (prePartTwo - prePartOne)/1000000.0);
