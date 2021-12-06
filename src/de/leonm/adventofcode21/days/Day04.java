@@ -20,22 +20,22 @@ public class Day04 extends Day {
     }
 
     @Override
-    public long partOne() {
+    public String partOne() {
         // For every drawn number, iterate through all boards and mark the number
         for (int number : drawnNumbers) {
             for (BingoBoard board : bingoBoards) {
                 board.markDrawnNumber(number);
                 // If current board has won, return solution
                 if (board.hasWon()) {
-                    return number * board.sumOfAllUnmarkedNumbers();
+                    return String.valueOf(number * board.sumOfAllUnmarkedNumbers());
                 }
             }
         }
-        return -1;
+        return "-1";
     }
 
     @Override
-    public long partTwo() {
+    public String partTwo() {
         List<BingoBoard> remainingBoards = new ArrayList<>(bingoBoards); // Used to keep track of remaining boards
         List<BingoBoard> tossedBoards = new ArrayList<>(); // Used to keep track of winning boards, that will be removed
 
@@ -44,7 +44,7 @@ public class Day04 extends Day {
                 board.markDrawnNumber(number);
                 // Return the last board once it has won
                 if (remainingBoards.size() == 1 && remainingBoards.get(0).hasWon()) {
-                        return number * remainingBoards.get(0).sumOfAllUnmarkedNumbers();
+                        return String.valueOf(number * remainingBoards.get(0).sumOfAllUnmarkedNumbers());
                 }
 
                 if (board.hasWon()) {
@@ -54,7 +54,7 @@ public class Day04 extends Day {
             // Toss boards that haven't won, if there are more than 1 boards left
             remainingBoards.removeAll(tossedBoards);
         }
-        return -1;
+        return "-1";
     }
 
     /**

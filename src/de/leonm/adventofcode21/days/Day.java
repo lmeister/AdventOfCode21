@@ -10,22 +10,22 @@ public abstract class Day {
      * Solves part one of the puzzle
      * @return solution as Integers
      */
-    public abstract long partOne();
+    public abstract String partOne();
     /**
      * Solves part two of the puzzle
      * @return solution as Integers
      */
-    public abstract long partTwo();
+    public abstract String partTwo();
 
     public void printSolutions() {
         long prePartOne = System.nanoTime();
-        long solution = partOne();
+        String solution = partOne();
         long prePartTwo = System.nanoTime();
-        System.out.printf("Part one solution: %1$d \n\tTime required: %2$.2f ms.\n",
+        System.out.printf("Part one solution: %1$s \n\tTime required: %2$.2f ms.\n",
             solution, (prePartTwo - prePartOne)/1000000.0);
         solution = partTwo();
         long postPartTwo = System.nanoTime();
-        System.out.printf("Part two solution: %1$d \n\tTime required: %2$.2f ms.\n",
+        System.out.printf("Part two solution: %1$s \n\tTime required: %2$.2f ms.\n",
             solution, (postPartTwo - prePartTwo)/1000000.0);
     }
 }

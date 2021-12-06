@@ -16,7 +16,7 @@ public class Day02 extends Day {
     }
 
     @Override
-    public long partOne() {
+    public String partOne() {
         int horizontal = 0;
         int vertical = 0;
 
@@ -38,11 +38,11 @@ public class Day02 extends Day {
                 }
             }
         }
-        return (long) horizontal * vertical;
+        return String.valueOf(horizontal * vertical);
     }
 
     @Override
-    public long partTwo() {
+    public String partTwo() {
         int horizontal = 0;
         int vertical = 0;
         int aim = 0;
@@ -66,6 +66,6 @@ public class Day02 extends Day {
                 }
             }
         }
-        return (long) horizontal * vertical;
+        return String.valueOf(horizontal * vertical);
     }
 }

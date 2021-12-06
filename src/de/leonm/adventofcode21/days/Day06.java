@@ -44,13 +44,13 @@ public class Day06 extends Day {
     */
 
     @Override
-    public long partOne() {
-        return getTotalFishAfterDays(80, input, 6, 8);
+    public String partOne() {
+        return String.valueOf(getTotalFishAfterDays(80, input, 6, 8));
     }
 
     @Override
-    public long partTwo() {
-        return getTotalFishAfterDays(256, input, 6, 8);
+    public String partTwo() {
+        return String.valueOf(getTotalFishAfterDays(256, input, 6, 8));
     }
 
     private long getTotalFishAfterDays(int days, int[] start, final int postMatingTimer, final int initialTimer) {

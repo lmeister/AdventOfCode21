@@ -13,7 +13,7 @@ public class Day01 extends Day {
     }
 
     @Override
-    public long partOne() {
+    public String partOne() {
         int lastElement = Integer.MAX_VALUE;
         int increaseCounter = 0;
         for (int current : input) {
@@ -22,11 +22,11 @@ public class Day01 extends Day {
                 }
                 lastElement = current;
             }
-        return increaseCounter;
+        return String.valueOf(increaseCounter);
     }
 
     @Override
-    public long partTwo() {
+    public String partTwo() {
         int[] lastWindow = {Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE};
         int increaseCounter = 0;
 
@@ -37,6 +37,6 @@ public class Day01 extends Day {
             }
             lastWindow = currentWindow;
         }
-        return increaseCounter;
+        return String.valueOf(increaseCounter);
     }
 }

@@ -12,7 +12,7 @@ public class Day03 extends Day {
     }
 
     @Override
-    public long partOne() {
+    public String partOne() {
         // form the binary strings
         StringBuilder gammaRate = new StringBuilder();
         StringBuilder epsilonRate = new StringBuilder();
@@ -25,14 +25,14 @@ public class Day03 extends Day {
             epsilonRate.append(leastCommonBit);
         }
 
-        return Long.parseLong(gammaRate.toString(), 2) * Long.parseLong(epsilonRate.toString(), 2);
+        return String.valueOf(Long.parseLong(gammaRate.toString(), 2) * Long.parseLong(epsilonRate.toString(), 2));
     }
 
     @Override
-    public long partTwo() {
+    public String partTwo() {
         String oxygenRating = findFinalCandidate(true, input);
         String scrubberRating = findFinalCandidate(false, input);
-        return (Long.parseLong(oxygenRating, 2) * Long.parseLong(scrubberRating, 2));
+        return String.valueOf(Long.parseLong(oxygenRating, 2) * Long.parseLong(scrubberRating, 2));
     }
 
     /**
