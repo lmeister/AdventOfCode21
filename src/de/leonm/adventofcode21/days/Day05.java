@@ -19,13 +19,13 @@ public class Day05 extends Day {
     }
 
     @Override
-    long partOne() {
+    public long partOne() {
         int[][] grid = initializeVentGridNoDiagonals(1000, input);
         return countIntersections(grid);
     }
 
     @Override
-    long partTwo() {
+    public long partTwo() {
         int[][] grid = initializeVentGrid(1000, input);
         //print2DArray(grid);
         return countIntersections(grid);

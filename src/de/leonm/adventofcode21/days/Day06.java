@@ -44,12 +44,12 @@ public class Day06 extends Day {
     */
 
     @Override
-    long partOne() {
+    public long partOne() {
         return getTotalFishAfterDays(80, input, 6, 8);
     }
 
     @Override
-    long partTwo() {
+    public long partTwo() {
         return getTotalFishAfterDays(256, input, 6, 8);
     }
 
@@ -89,11 +89,11 @@ public class Day06 extends Day {
      * List grows too long and objects take up too much space.
      */
     private class LanternFish {
-        private static final int TIMER_FOR_YOUNGLINGS = 8;
-        private int internalTimer;
-        private static final int DECREMENT = 1;
+        private static final short TIMER_FOR_YOUNGLINGS = 8;
+        private short internalTimer;
+        private static final short DECREMENT = 1;
 
-        public LanternFish(int initialTimer) {
+        public LanternFish(short initialTimer) {
             this.internalTimer = initialTimer;
         }
 
@@ -101,7 +101,7 @@ public class Day06 extends Day {
             this.internalTimer -= DECREMENT;
         }
 
-        public int getInternalTimer() {
+        public short getInternalTimer() {
             return this.internalTimer;
         }
 

@@ -16,7 +16,7 @@ public class Day02 extends Day {
     }
 
     @Override
-    long partOne() {
+    public long partOne() {
         int horizontal = 0;
         int vertical = 0;
 
@@ -42,7 +42,7 @@ public class Day02 extends Day {
     }
 
     @Override
-    long partTwo() {
+    public long partTwo() {
         int horizontal = 0;
         int vertical = 0;
         int aim = 0;

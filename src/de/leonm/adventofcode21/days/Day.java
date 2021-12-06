@@ -10,12 +10,12 @@ public abstract class Day {
      * Solves part one of the puzzle
      * @return solution as Integers
      */
-    abstract long partOne();
+    public abstract long partOne();
     /**
      * Solves part two of the puzzle
      * @return solution as Integers
      */
-    abstract long partTwo();
+    public abstract long partTwo();
 
     public void printSolutions() {
         long prePartOne = System.nanoTime();

@@ -12,7 +12,7 @@ public class Day03 extends Day {
     }
 
     @Override
-    long partOne() {
+    public long partOne() {
         // form the binary strings
         StringBuilder gammaRate = new StringBuilder();
         StringBuilder epsilonRate = new StringBuilder();
@@ -29,7 +29,7 @@ public class Day03 extends Day {
     }
 
     @Override
-    long partTwo() {
+    public long partTwo() {
         String oxygenRating = findFinalCandidate(true, input);
         String scrubberRating = findFinalCandidate(false, input);
         return (Long.parseLong(oxygenRating, 2) * Long.parseLong(scrubberRating, 2));
