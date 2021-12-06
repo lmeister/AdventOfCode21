@@ -53,6 +53,7 @@ public class Day04 extends Day {
             }
             // Toss boards that haven't won, if there are more than 1 boards left
             remainingBoards.removeAll(tossedBoards);
+            tossedBoards.clear();
         }
         return "-1";
     }
