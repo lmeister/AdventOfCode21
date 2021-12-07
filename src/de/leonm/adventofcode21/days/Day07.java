@@ -66,9 +66,9 @@ public class Day07 extends Day {
 
     /**
      * Calculates fuel via gauss
-     * @param positions
-     * @param target
-     * @return
+     * @param positions current depths of the crabs
+     * @param target target depth of the crab
+     * @return fuel price for the movement of each crab summed up
      */
     private int calculateFuelIncreasingPrice(int[] positions, int target) {
         int cost = 0;
