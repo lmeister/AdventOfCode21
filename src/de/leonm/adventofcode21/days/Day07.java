@@ -16,22 +16,12 @@ public class Day07 extends Day {
 
     @Override
     public String partOne() {
+        int lowestFuelRequired = 0;
         Arrays.sort(input);
 
-        int lowestFuelRequired = Integer.MAX_VALUE;
-        int depthForLowestFuel = -1;
-        for (int depth = 0; depth < input[input.length - 1]; depth++) {
-            int tempFuel = 0;
-            for (int crabPosition : input) {
-                tempFuel += Math.abs(depth - crabPosition);
-                if (tempFuel > lowestFuelRequired) {
-                    break;
-                }
-            }
-            if (tempFuel <= lowestFuelRequired) {
-                lowestFuelRequired = tempFuel;
-            }
-            // System.out.println("Fuel: " + tempFuel + ", Depth: " + depth);
+        // Property of median is that every element in the list will have lowest deviation from median
+        for (int crabPosition : input) {
+            lowestFuelRequired += Math.abs(crabPosition - (int) (findMedian(input)));
         }
 
         return String.valueOf(lowestFuelRequired);
@@ -39,24 +29,53 @@ public class Day07 extends Day {
 
     @Override
     public String partTwo() {
-        Arrays.sort(input);
-
-        int lowestFuelRequired = Integer.MAX_VALUE;
-        for (int depth = 0; depth < input[input.length - 1]; depth++) {
-            int tempFuel = 0;
-            for (int crabPosition : input) {
-                int n = Math.abs(depth - crabPosition);
-                tempFuel += (n * (n+1)) / 2;
-                if (tempFuel > lowestFuelRequired) {
-                    break;
-                }
-            }
-            if (tempFuel <= lowestFuelRequired) {
-                lowestFuelRequired = tempFuel;
-            }
-            // System.out.println("Fuel: " + tempFuel + ", Depth: " + depth);
-        }
+        // Sum of 1..n can be calculated via gauss's (n(n+1))/2 which we can estimate to n^2
+        // This allows us to us the arithmetic mean as an estimation of lowest deviation (Will have to check around it)
+        double mean = findMean(input);
+        // solution is then the lowest of the two
+        int lowestFuelRequired = Math.min(calculateFuelIncreasingPrice(input, (int) Math.floor(mean)),
+                calculateFuelIncreasingPrice(input, (int) Math.ceil(mean)));
 
         return String.valueOf(lowestFuelRequired);
+    }
+
+    /**
+     * Requires input array to be sorted.
+     * @param input sorted integer array
+     * @return the median of the int array
+     */
+    private double findMedian(int[] input) {
+        int middle = input.length / 2;
+        // if input has even length, median is the avg of both "middle elements"
+        if (input.length % 2 == 0) {
+            return (input[middle] + input[middle - 1]) / 2.0;
+            // Else mean is middle element
+        } else {
+            return input[middle];
+        }
+    }
+
+    /**
+     * Computes arithmetic mean
+     * @param input integer array
+     * @return mean as double
+     */
+    private double findMean(int[] input) {
+        return (double) Arrays.stream(input).sum() / input.length;
+    }
+
+    /**
+     * Calculates fuel via gauss
+     * @param positions
+     * @param target
+     * @return
+     */
+    private int calculateFuelIncreasingPrice(int[] positions, int target) {
+        int cost = 0;
+        for (int pos : positions) {
+            int n = Math.abs(target - pos);
+            cost += (n * (n + 1))/2;
+        }
+        return cost;
     }
 }
