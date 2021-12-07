@@ -30,7 +30,8 @@ public class Day07 extends Day {
     @Override
     public String partTwo() {
         // Sum of 1..n can be calculated via gauss's (n(n+1))/2 which we can estimate to n^2
-        // This allows us to us the arithmetic mean as an estimation of lowest deviation (Will have to check around it)
+        // This allows us to use the arithmetic mean as an estimation of lowest deviation of each element
+        // (Will have to check around it)
         double mean = findMean(input);
         // solution is then the lowest of the two
         int lowestFuelRequired = Math.min(calculateFuelIncreasingPrice(input, (int) Math.floor(mean)),
