@@ -38,6 +38,7 @@ public class Day09 extends Day {
 
         for (int x = 0; x < heightmap.length; x++) {
             for (int y = 0; y < heightmap[0].length; y++) {
+                int valueAtPosition = heightmap[x][y];
                 if (isLowestPoint(x, y)) {
                     lowpoints.add(new Point(x, y));
                     riskLevelSum += (1 + heightmap[x][y]);
@@ -51,8 +52,6 @@ public class Day09 extends Day {
 
     @Override
     public String partTwo() {
-
-        // Divide grid into sections where 9s are walls
         List<Integer> foundSizes = new ArrayList<>();
         Set<Point> visitedPoints = new HashSet<>();
         for (Point curPoint : lowpoints) {
@@ -60,6 +59,7 @@ public class Day09 extends Day {
                     int basinSize = 0;
                     Deque<Point> queue = new ArrayDeque<>();
                     queue.add(curPoint);
+
                     while (!queue.isEmpty()) {
                         Point point = queue.removeFirst();
                         // If we have seen this square, do nothing
@@ -89,64 +89,45 @@ public class Day09 extends Day {
      * @return true if current position is greater than all neighbors, else false
      */
     private boolean isLowestPoint(int x, int y) {
-        if (x != 0) {
-            if (heightmap[x - 1][y] <= heightmap[x][y]) {
-                return false;
-            }
-        }
-
-        if (x != heightmap.length - 1) {
-            if (heightmap[x + 1][y] <= heightmap[x][y]) {
-                return false;
-            }
-        }
-
-        if (y != 0) {
-            if (heightmap[x][y - 1] <= heightmap[x][y]) {
-                return false;
-            }
-        }
-
-        if (y != heightmap[0].length - 1) {
-            if (heightmap[x][y + 1] <= heightmap[x][y]) {
-                return false;
-            }
-        }
-        return true;
+        int valueAtPosition = heightmap[x][y];
+        return getNeighbors(x, y).stream().noneMatch(p -> heightmap[p.x][p.y] <= valueAtPosition);
     }
 
     private List<Point> getAllNon9Neighbors(int x, int y) {
         List<Point> non9Points = new ArrayList<>(4);
 
-        // Check the left neighbor unless we're at boundary
-        if (x != 0) {
-            if (heightmap[x - 1][y] >= heightmap[x][y] && heightmap[x - 1][y] != 9) {
-                non9Points.add(new Point(x - 1, y));
-            }
-        }
-
-        // Check the right neighbor unless we're at boundary
-        if (x != heightmap.length - 1) {
-            if (heightmap[x + 1][y] >= heightmap[x][y] && heightmap[x + 1][y] != 9) {
-                non9Points.add(new Point(x + 1, y));
-            }
-        }
-
-        // Check the lower neighbor unless we're at boundary
-        if (y != 0) {
-            if (heightmap[x][y - 1] >= heightmap[x][y] && heightmap[x][y - 1] != 9) {
-                non9Points.add(new Point(x, y - 1));
-            }
-        }
-
-        // Check the upper neighbor unless we're at boundary
-        if (y != heightmap[0].length - 1) {
-            if (heightmap[x][y + 1] >= heightmap[x][y] && heightmap[x][y + 1] != 9) {
-                non9Points.add(new Point(x, y + 1));
+        for (Point neighbor : getNeighbors(x, y)) {
+            if (heightmap[neighbor.x][neighbor.y] >= heightmap[x][y] && heightmap[neighbor.x][neighbor.y] != 9) {
+                non9Points.add(neighbor);
             }
         }
 
         return non9Points;
     }
 
+    private List<Point> getNeighbors(int x, int y) {
+        List<Point> neighbors = new ArrayList<>(4);
+
+        // Check the left neighbor unless we're at boundary
+        if (x != 0) {
+            neighbors.add(new Point(x - 1, y));
+        }
+
+        // Check the right neighbor unless we're at boundary
+        if (x != heightmap.length - 1) {
+            neighbors.add(new Point(x + 1, y));
+        }
+
+        // Check the lower neighbor unless we're at boundary
+        if (y != 0) {
+            neighbors.add(new Point(x, y - 1));
+        }
+
+        // Check the upper neighbor unless we're at boundary
+        if (y != heightmap[0].length - 1) {
+            neighbors.add(new Point(x, y + 1));
+        }
+
+        return neighbors;
+    }
 }
