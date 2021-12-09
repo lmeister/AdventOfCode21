@@ -71,10 +71,12 @@ public class Day09 extends Day {
                 foundSizes.add(basinSize);
             }
         }
-        // Sort the basin sizes in descending order, so that we can multiply and return three largest basin sizes
-        foundSizes.sort(Collections.reverseOrder());
-        int productOf3LargestBasins = foundSizes.get(0) * foundSizes.get(1) * foundSizes.get(2);
-        return String.valueOf(productOf3LargestBasins);
+        // Find 3 largest basin sizes and multiply them. Return the result
+        return foundSizes.stream()
+                .sorted(Comparator.reverseOrder())
+                .limit(3)
+                .reduce(1, (a, b) -> a * b)
+                .toString();
     }
 
     /**
