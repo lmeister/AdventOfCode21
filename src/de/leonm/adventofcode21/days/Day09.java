@@ -8,20 +8,15 @@ import java.util.List;
 
 public class Day09 extends Day {
 
-    // First 10 elements found are prior to the |
-    // Next 4 are the output values
     private final List<String> input;
-    private static final int MIN_X = 0;
-    private static final int MAX_X = 99;
-    private static final int MIN_Y = 0;
-    private static final int MAX_Y = 99;
     private int[][] heightmap;
     private List<Point> lowpoints;
 
     public Day09(String path) throws IOException {
         input = reader.getStringListFromFile(path);
-        heightmap = new int[MAX_X + 1][MAX_Y + 1];
+        heightmap = new int[100][100];
         lowpoints = new ArrayList<>();
+
         // Initialize the height map
         for (int i = 0; i < input.size(); i++) {
             for (int j = 0; j < input.get(i).length(); j++) {
@@ -38,7 +33,6 @@ public class Day09 extends Day {
 
         for (int x = 0; x < heightmap.length; x++) {
             for (int y = 0; y < heightmap[0].length; y++) {
-                int valueAtPosition = heightmap[x][y];
                 if (isLowestPoint(x, y)) {
                     lowpoints.add(new Point(x, y));
                     riskLevelSum += (1 + heightmap[x][y]);
