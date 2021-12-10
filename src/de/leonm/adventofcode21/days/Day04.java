@@ -96,22 +96,6 @@ public class Day04 extends Day {
             }
         }
 
-
-        private void printBoard() {
-            for (int i = 0; i < SIZE; i++) {
-                for (int j = 0; j < SIZE; j++) {
-                    if (board[i][j].isDrawn()) {
-                        System.out.print("!"); // Marks drawn numbers with !
-                    } else {
-                        System.out.print(" ");
-                    }
-                    System.out.print(board[i][j].getNumber() + " ");
-                }
-                System.out.println("");
-            }
-            System.out.println("--------");
-        }
-
         public boolean hasWon() {
             boolean won = false;
             // check if any row or column is fully marked

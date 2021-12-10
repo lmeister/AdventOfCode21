@@ -1,5 +1,7 @@
 package de.leonm.adventofcode21.days;
 
+import de.leonm.adventofcode21.utils.StringUtils;
+
 import java.io.IOException;
 import java.util.*;
 
@@ -18,7 +20,7 @@ public class Day03 extends Day {
         StringBuilder epsilonRate = new StringBuilder();
 
         for (int i = 0; i < input.get(0).length(); i++) {
-            char mostCommonBit = findMostCommonCharAtPosition(i, input);
+            char mostCommonBit = StringUtils.findMostCommonCharAtPosition(i, input);
             gammaRate.append(mostCommonBit);
 
             char leastCommonBit = (char) (mostCommonBit ^ 1); // flips the bit and cast to char
@@ -47,7 +49,7 @@ public class Day03 extends Day {
         // Iterate through String length
         for (int i = 0; i < copy.get(0).length(); i++) {
             // In each iteration determine most common bit for the current position i
-            char mostCommonBit = findMostCommonCharAtPosition(i, copy);
+            char mostCommonBit = StringUtils.findMostCommonCharAtPosition(i, copy);
 
             if (mostCommon) {
                 int currentPosition = i; // Helper variable for lambda
@@ -68,25 +70,6 @@ public class Day03 extends Day {
         return copy.get(0);
     }
 
-    /**
-     * Finds the most common char at given position
-     * @param position Given position
-     * @param input List containing the strings to be checked
-     * @return Most common char at position
-     */
-    private char findMostCommonCharAtPosition(int position, List<String> input) {
-        Map<Character, Integer> countMap = new HashMap<>();
-        for (String current : input) {
-            char charAtPosition = current.charAt(position);
-            countMap.merge(charAtPosition, 1, Integer::sum);
-        }
 
-        // Find largest key in hashmap
-        return countMap.entrySet()
-                .stream()
-                .max((a, b) -> a.getValue() > b.getValue() ? 1 : -1)
-                .get()
-                .getKey();
-    }
 
 }

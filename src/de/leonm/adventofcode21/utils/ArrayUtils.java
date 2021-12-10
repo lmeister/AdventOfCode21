@@ -46,4 +46,13 @@ public class ArrayUtils {
         }
         return elementsInIntersection >= amount;
     }
+
+    public <T> void print2DArray(T[][] array) {
+        for (T[] ints : array) {
+            for (int j = 0; j < array[0].length; j++) {
+                System.out.print(ints[j] + " ");
+            }
+            System.out.println("");
+        }
+    }
 }
