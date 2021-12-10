@@ -1,5 +1,7 @@
 package de.leonm.adventofcode21.days;
 
+import de.leonm.adventofcode21.utils.ArrayUtils;
+
 import java.io.IOException;
 import java.util.*;
 
@@ -88,11 +90,11 @@ private final List<String> input;
                         digitCombinationMap.put(inputValue, 4);
                         break;
                     case 5:
-                        if (checkIfSubset(inputValue.toCharArray(), combinationDigitMap.get(7).toCharArray())) {
+                        if (ArrayUtils.checkIfSubset(inputValue.toCharArray(), combinationDigitMap.get(7).toCharArray())) {
                             combinationDigitMap.put(3, inputValue);
                             digitCombinationMap.put(inputValue, 3);
                         } else {
-                            if (checkIfIntersectionOfSize(inputValue.toCharArray(), combinationDigitMap.get(4).toCharArray(), 3)) {
+                            if (ArrayUtils.checkIfIntersectionOfSize(inputValue.toCharArray(), combinationDigitMap.get(4).toCharArray(), 3)) {
                                 combinationDigitMap.put(5, inputValue);
                                 digitCombinationMap.put(inputValue, 5);
                             } else {
@@ -102,11 +104,11 @@ private final List<String> input;
                         }
                         break;
                     case 6:
-                        if (checkIfSubset(inputValue.toCharArray(), combinationDigitMap.get(4).toCharArray())) {
+                        if (ArrayUtils.checkIfSubset(inputValue.toCharArray(), combinationDigitMap.get(4).toCharArray())) {
                             combinationDigitMap.put(9, inputValue);
                             digitCombinationMap.put(inputValue, 9);
                         } else {
-                            if (checkIfSubset(inputValue.toCharArray(), combinationDigitMap.get(7).toCharArray())) {
+                            if (ArrayUtils.checkIfSubset(inputValue.toCharArray(), combinationDigitMap.get(7).toCharArray())) {
                                 combinationDigitMap.put(0, inputValue);
                                 digitCombinationMap.put(inputValue, 0);
                             } else {
@@ -138,48 +140,6 @@ private final List<String> input;
         }
 
         return String.valueOf(sum);
-    }
-
-    /**
-     * Checks if second is a subset of first
-     * @param first char array
-     * @param second char array
-     * @return
-     */
-    private boolean checkIfSubset(char[] first, char[] second) {
-        Set<Character> superset = new HashSet<>(first.length);
-        for (char f : first) {
-            superset.add(f);
-        }
-
-        for (char s : second) {
-            if (!superset.contains(s)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    /**
-     * Checks if the amount of elements in the intersection of two sets is at least as big as given amount
-     * @param first char array
-     * @param second char array
-     * @param amount the minimum amount of elements in intersection
-     * @return
-     */
-    private boolean checkIfIntersectionOfSize(char[] first, char[] second, int amount) {
-        Set<Character> superset = new HashSet<>(first.length);
-        int elementsInIntersection = 0;
-        for (char f : first) {
-            superset.add(f);
-        }
-
-        for (char s : second) {
-            if (superset.contains(s)) {
-                elementsInIntersection++;
-            }
-        }
-        return elementsInIntersection >= amount;
     }
 
 }
