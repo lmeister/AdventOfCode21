@@ -8,8 +8,8 @@ import java.util.*;
 
 public class Day10 extends Day {
 
-    private List<String> input;
-    private Set<String> illegalLines;
+    private final List<String> input;
+    private final Set<String> illegalLines;
     private static Map<Character, Integer> charValue;
 
 
@@ -77,38 +77,11 @@ public class Day10 extends Day {
         for (char bracket : line.toCharArray()) {
             if (bracket == '(' || bracket == '[' || bracket == '{' || bracket == '<') {
                 bracketStack.push(bracket);
-            } else if (bracket == ')') {
+            } else {
                 if (bracketStack.empty()) {
                     return Optional.of(bracket);
                 }
-                if (bracketStack.peek() == '(') {
-                    bracketStack.pop();
-                } else {
-                    return Optional.of(bracket);
-                }
-            } else if (bracket == '}') {
-                if (bracketStack.empty()) {
-                    return Optional.of(bracket);
-                }
-                if (bracketStack.peek() == '{') {
-                    bracketStack.pop();
-                } else {
-                    return Optional.of(bracket);
-                }
-            }  else if (bracket == ']') {
-                if (bracketStack.empty()) {
-                    return Optional.of(bracket);
-                }
-                if (bracketStack.peek() == '[') {
-                    bracketStack.pop();
-                } else {
-                    return Optional.of(bracket);
-                }
-            } else if (bracket == '>') {
-                if (bracketStack.empty()) {
-                    return Optional.of(bracket);
-                }
-                if (bracketStack.peek() == '<') {
+                if (bracketStack.peek() == getInvertedBracket(bracket, true)) {
                     bracketStack.pop();
                 } else {
                     return Optional.of(bracket);
@@ -126,20 +99,8 @@ public class Day10 extends Day {
         for (char bracket : line.toCharArray()) {
             if (bracket == '(' || bracket == '[' || bracket == '{' || bracket == '<') {
                 bracketStack.push(bracket);
-            } else if (bracket == ')') {
-                if (bracketStack.peek() == '(') {
-                    bracketStack.pop();
-                }
-            } else if (bracket == '}') {
-                if (bracketStack.peek() == '{') {
-                    bracketStack.pop();
-                }
-            }  else if (bracket == ']') {
-                if (bracketStack.peek() == '[') {
-                    bracketStack.pop();
-                }
-            } else if (bracket == '>') {
-                if (bracketStack.peek() == '<') {
+            } else {
+                if (bracketStack.peek() == getInvertedBracket(bracket, true)) {
                     bracketStack.pop();
                 }
             }
@@ -147,7 +108,7 @@ public class Day10 extends Day {
 
         // Get closing counter part for all non closed brackets
         for (Character bracket : bracketStack) {
-            missingBrackets.add(getInvertedBracket(bracket, true));
+            missingBrackets.add(getInvertedBracket(bracket, false));
         }
 
         Collections.reverse(missingBrackets);
@@ -159,15 +120,18 @@ public class Day10 extends Day {
         int asciiAdd = 2; // if we add +2 on the char we get the closing bracket
 
         // Except for rounded ones, for them it's only +1
-        if (bracket == '(') {
+        if (bracket == '(' || bracket == ')') {
             asciiAdd = 1;
         }
+        char invertedBracket;
 
-        if (!isClosedBracket) {
-            asciiAdd *= -1;
+        if (isClosedBracket) {
+            invertedBracket = (char) (bracket - asciiAdd);
+        } else {
+            invertedBracket = (char) (bracket + asciiAdd);
         }
 
-        return (char) (bracket + asciiAdd);
+        return invertedBracket;
     }
 
     private static long pointsPerList(List<Character> list) {
