@@ -4,6 +4,7 @@ import java.awt.*;
 import java.io.IOException;
 import java.util.List;
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 public class Day10 extends Day {
@@ -23,10 +24,7 @@ public class Day10 extends Day {
     @Override
     public String partOne() {
         // Set up for point calculation
-        charValue.put(')', 3);
-        charValue.put(']', 57);
-        charValue.put('}', 1197);
-        charValue.put('>', 25137);
+        charValue = Map.of(')', 3, ']', 57, '}', 1197, '>', 25137);
 
         Map<Character, Integer> charErrorCounter = new HashMap<>();
 
@@ -52,21 +50,15 @@ public class Day10 extends Day {
 
     @Override
     public String partTwo() {
-        // Set up for the point calculation
-        charValue.put(')', 1);
-        charValue.put(']', 2);
-        charValue.put('}', 3);
-        charValue.put('>', 4);
+        charValue = Map.of(')', 1, ']', 2, '}', 3, '>', 4);
 
-        List<Long> points = new ArrayList<>();
-        for (String line : input) {
-            // ignore illegalLines
-            if (!illegalLines.contains(line)) {
-                List<Character> missingBrackets = findMissingBrackets(line);
-                points.add(pointsPerList(missingBrackets));
-              }
-        }
-        Collections.sort(points);
+        List<Long> points = input.stream()
+                .filter(line -> !illegalLines.contains(line)) // Ignore illegal lines
+                .map(Day10::findMissingBrackets) // Finds missing brackets in line
+                .map(Day10::pointsPerList)// calculates points for missing brackets
+                .sorted()
+                .collect(Collectors.toList());
+
 
         return String.valueOf(points.get((points.size() / 2)));
     }
