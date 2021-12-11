@@ -1,6 +1,9 @@
 package de.leonm.adventofcode21.utils;
 
+import java.awt.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class ArrayUtils {
@@ -54,5 +57,49 @@ public class ArrayUtils {
             }
             System.out.println("");
         }
+    }
+
+    /**
+     * Retrieves all 4 neighbors of a point given by x and y in the heightmap.
+     * Aware of boundaries.
+     * @param x x Position of given point
+     * @param y y position of given point
+     * @return A list containing the neighbors as Point objects
+     */
+    public static List<Point> getNeighbors(int x, int y, int[][] array) {
+        List<Point> neighbors = new ArrayList<>(4);
+
+        // Check the left neighbor unless we're at boundary
+        if (x != 0) {
+            neighbors.add(new Point(x - 1, y));
+        }
+
+        // Check the right neighbor unless we're at boundary
+        if (x != array.length - 1) {
+            neighbors.add(new Point(x + 1, y));
+        }
+
+        // Check the lower neighbor unless we're at boundary
+        if (y != 0) {
+            neighbors.add(new Point(x, y - 1));
+        }
+
+        // Check the upper neighbor unless we're at boundary
+        if (y != array[0].length - 1) {
+            neighbors.add(new Point(x, y + 1));
+        }
+
+        return neighbors;
+    }
+
+    public static int[][] get2DArrayFromStringList(List<String> input) {
+        int[][] array = new int[input.size()][input.get(0).length()];
+        for (int i = 0; i < input.size(); i++) {
+            for (int j = 0; j < input.get(i).length(); j++) {
+                array[i][j] = Character.getNumericValue(input.get(i).charAt(j));
+            }
+        }
+
+        return array;
     }
 }

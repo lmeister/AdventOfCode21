@@ -1,5 +1,7 @@
 package de.leonm.adventofcode21.days;
 
+import de.leonm.adventofcode21.utils.ArrayUtils;
+
 import java.awt.*;
 import java.io.IOException;
 import java.util.*;
@@ -13,15 +15,8 @@ public class Day09 extends Day {
 
     public Day09(String path) throws IOException {
         List<String> input = reader.getStringListFromFile(path);
-        heightMap = new int[100][100];
         lowPoints = new ArrayList<>();
-
-        // Initialize the height map
-        for (int i = 0; i < input.size(); i++) {
-            for (int j = 0; j < input.get(i).length(); j++) {
-                heightMap[i][j] = Character.getNumericValue(input.get(i).charAt(j));
-            }
-        }
+        heightMap = ArrayUtils.get2DArrayFromStringList(input);
     }
 
 
@@ -88,7 +83,7 @@ public class Day09 extends Day {
      */
     private boolean isLowestPoint(int x, int y) {
         int valueAtPosition = heightMap[x][y];
-        return getNeighbors(x, y).stream().noneMatch(p -> heightMap[p.x][p.y] <= valueAtPosition);
+        return ArrayUtils.getNeighbors(x, y, heightMap).stream().noneMatch(p -> heightMap[p.x][p.y] <= valueAtPosition);
     }
 
     /**
@@ -101,7 +96,7 @@ public class Day09 extends Day {
     private List<Point> getBasinNeighbors(int x, int y) {
         List<Point> basinNeighbors = new ArrayList<>(4);
 
-        for (Point neighbor : getNeighbors(x, y)) {
+        for (Point neighbor : ArrayUtils.getNeighbors(x, y, heightMap)) {
             if (heightMap[neighbor.x][neighbor.y] >= heightMap[x][y] && heightMap[neighbor.x][neighbor.y] != 9) {
                 basinNeighbors.add(neighbor);
             }
@@ -110,36 +105,5 @@ public class Day09 extends Day {
         return basinNeighbors;
     }
 
-    /**
-     * Retrieves all 4 neighbors of a point given by x and y in the heightmap.
-     *
-     * @param x x Position of given point
-     * @param y y position of given point
-     * @return A list containing the neighbors as Point objects
-     */
-    private List<Point> getNeighbors(int x, int y) {
-        List<Point> neighbors = new ArrayList<>(4);
 
-        // Check the left neighbor unless we're at boundary
-        if (x != 0) {
-            neighbors.add(new Point(x - 1, y));
-        }
-
-        // Check the right neighbor unless we're at boundary
-        if (x != heightMap.length - 1) {
-            neighbors.add(new Point(x + 1, y));
-        }
-
-        // Check the lower neighbor unless we're at boundary
-        if (y != 0) {
-            neighbors.add(new Point(x, y - 1));
-        }
-
-        // Check the upper neighbor unless we're at boundary
-        if (y != heightMap[0].length - 1) {
-            neighbors.add(new Point(x, y + 1));
-        }
-
-        return neighbors;
-    }
 }
