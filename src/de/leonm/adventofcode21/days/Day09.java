@@ -83,7 +83,7 @@ public class Day09 extends Day {
      */
     private boolean isLowestPoint(int x, int y) {
         int valueAtPosition = heightMap[x][y];
-        return ArrayUtils.getNeighbors(x, y, heightMap).stream().noneMatch(p -> heightMap[p.x][p.y] <= valueAtPosition);
+        return ArrayUtils.getStraightNeighbors(x, y, heightMap).stream().noneMatch(p -> heightMap[p.x][p.y] <= valueAtPosition);
     }
 
     /**
@@ -96,7 +96,7 @@ public class Day09 extends Day {
     private List<Point> getBasinNeighbors(int x, int y) {
         List<Point> basinNeighbors = new ArrayList<>(4);
 
-        for (Point neighbor : ArrayUtils.getNeighbors(x, y, heightMap)) {
+        for (Point neighbor : ArrayUtils.getStraightNeighbors(x, y, heightMap)) {
             if (heightMap[neighbor.x][neighbor.y] >= heightMap[x][y] && heightMap[neighbor.x][neighbor.y] != 9) {
                 basinNeighbors.add(neighbor);
             }

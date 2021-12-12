@@ -50,10 +50,10 @@ public class ArrayUtils {
         return elementsInIntersection >= amount;
     }
 
-    public <T> void print2DArray(T[][] array) {
-        for (T[] ints : array) {
+    public static void print2DArray(int[][] array) {
+        for (int[] line : array) {
             for (int j = 0; j < array[0].length; j++) {
-                System.out.print(ints[j] + " ");
+                System.out.print(line[j] + " ");
             }
             System.out.println("");
         }
@@ -66,7 +66,7 @@ public class ArrayUtils {
      * @param y y position of given point
      * @return A list containing the neighbors as Point objects
      */
-    public static List<Point> getNeighbors(int x, int y, int[][] array) {
+    public static List<Point> getStraightNeighbors(int x, int y, int[][] array) {
         List<Point> neighbors = new ArrayList<>(4);
 
         // Check the left neighbor unless we're at boundary
@@ -92,6 +92,48 @@ public class ArrayUtils {
         return neighbors;
     }
 
+    public static List<Point> getDiagonalNeighbors(int x, int y, int[][] array) {
+        List<Point> neighbors = new ArrayList<>(4);
+
+        // First line
+        if (x == 0) {
+            if (y == 0) {
+                neighbors.add(new Point(x + 1, y + 1));
+            } else if (y == array[0].length - 1) {
+                neighbors.add(new Point(x + 1, y -1));
+            } else {
+                neighbors.add(new Point(x + 1, y + 1));
+                neighbors.add(new Point(x + 1, y -1));
+            }
+        } else if (x == array.length - 1) {
+            if (y == 0) {
+                neighbors.add(new Point(x - 1, y + 1));
+            } else if (y == array[0].length - 1) {
+                neighbors.add(new Point(x - 1, y - 1));
+            } else {
+                neighbors.add(new Point(x - 1, y + 1));
+                neighbors.add(new Point(x - 1, y - 1));
+            }
+            // Somewhere in middle of x
+        } else {
+            if (y == 0) {
+                neighbors.add(new Point(x + 1, y - 1));
+                neighbors.add(new Point(x + 1, y + 1));
+            } else if (y == array[0].length - 1) {
+                neighbors.add(new Point(x - 1, y - 1));
+                neighbors.add(new Point(x - 1, y + 1));
+            } else {
+                neighbors.add(new Point(x - 1, y - 1));
+                neighbors.add(new Point(x - 1, y + 1));
+                neighbors.add(new Point(x + 1, y - 1));
+                neighbors.add(new Point(x + 1, y + 1));
+            }
+        }
+
+        return neighbors;
+    }
+
+    // Todo this will be removed, as NumberGrid class is used
     public static int[][] get2DArrayFromStringList(List<String> input) {
         int[][] array = new int[input.size()][input.get(0).length()];
         for (int i = 0; i < input.size(); i++) {
