@@ -1,10 +1,8 @@
 package de.leonm.adventofcode21.utils;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.IntStream;
 import java.util.stream.LongStream;
@@ -23,6 +21,29 @@ public class NumberGrid {
 
     public NumberGrid(List<String> input) {
         this.grid = get2DArrayFromStringList(input);
+    }
+
+    public NumberGrid(List<Point> points, long value) {
+        // Sort Points by highest x value to get amount of columns
+        points.sort(new Comparator<Point>() {
+            @Override
+            public int compare(Point o1, Point o2) {
+                return Double.compare(o1.getX(), o2.getX());
+            }
+        });
+        int columns = points.get(points.size() - 1).x + 1;
+        points.sort(new Comparator<Point>() {
+            @Override
+            public int compare(Point o1, Point o2) {
+                return Double.compare(o1.getY(), o2.getY());
+            }
+        });
+        int rows = points.get(points.size() - 1).y + 1;
+        long[][] grid = new long[columns][rows];
+        for (Point point : points) {
+            grid[point.x][point.y] = value;
+        }
+        this.grid = grid;
     }
 
     /**
@@ -221,11 +242,26 @@ public class NumberGrid {
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[0].length; j++) {
-                stringBuilder.append(getValueAt(new Point(i, j)) + " ");
+                if (getValueAt(new Point(i, j)).isPresent()) {
+                    stringBuilder.append(getValueAt(new Point(i, j)).get()).append(" ");
+                }
             }
             stringBuilder.append("\n");
         }
 
         return stringBuilder.toString();
     }
+
+    public void transposeGrid() {
+        long[][] transposedGrid = new long[this.grid[0].length][this.grid.length];
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                if (getValueAt(new Point(i, j)).isPresent()) {
+                    transposedGrid[j][i] = getValueAt(new Point(i, j)).get();
+                }
+            }
+        }
+        this.grid = transposedGrid;
+    }
+
 }
