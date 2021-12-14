@@ -5,7 +5,7 @@ import de.leonm.adventofcode21.days.Day;
 public class Main {
 
     public static void main(String[] args) {
-        for (int i = 14; i <= 14; i++) {
+        for (int i = 12; i <= 12; i++) {
             String dayNumberCode = String.format("%02d", i);
             System.out.println("-------- Day " + dayNumberCode + " --------");
             try {
