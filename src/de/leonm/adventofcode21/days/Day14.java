@@ -60,6 +60,7 @@ public class Day14 extends Day {
             }
         }
 
+        // Since we do (A,B) = AC & CB and then count C twice, we have to divide by 2 and subtract 1
         return ((highestFrequency - lowestFrequency) / 2 + 1);
     }
 
