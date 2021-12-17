@@ -59,6 +59,15 @@ public class ArrayUtils {
         }
     }
 
+    public static void print2DArray(long[][] array) {
+        for (long[] line : array) {
+            for (int j = 0; j < array[0].length; j++) {
+                System.out.print(line[j] + " ");
+            }
+            System.out.println("");
+        }
+    }
+
     /**
      * Retrieves all 4 neighbors of a point given by x and y in the heightmap.
      * Aware of boundaries.

@@ -264,4 +264,15 @@ public class NumberGrid {
         this.grid = transposedGrid;
     }
 
+    public int getAmountOfRows() {
+        return this.grid.length;
+    }
+
+    public int getAmountOfColumns() {
+        return this.grid[0].length;
+    }
+
+    public long[][] getGrid() {
+        return grid;
+    }
 }
