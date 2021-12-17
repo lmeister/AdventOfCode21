@@ -27,7 +27,6 @@ public class Day17 extends Day {
             this.y1 = Integer.parseInt(matcher.group("y1"));
             this.y2 = Integer.parseInt(matcher.group("y2"));
         }
-        System.out.println("X1: " + x1 + ", x2: " + x2 + " - y1: " + y1 + ", y2: " + y2);
     }
 
 
@@ -62,7 +61,6 @@ public class Day17 extends Day {
             yVelocity--;
             // Are we in the target?
             if (this.x1 <= x && x <= this.x2 && this.y1 <= y && y <= this.y2) {
-                System.out.println(x + ", " + y);
                 return 1;
             }
         }
