@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 
 public class Day21 extends Day {
@@ -70,7 +71,7 @@ public class Day21 extends Day {
         int playerOnePosition = startPlayerOne - 1;
         int playerTwoPosition = startPlayerTwo - 1;
 
-        Map<int[], long[]> memoizedOutcomes = new HashMap<>();
+        Map<GameState, long[]> memoizedOutcomes = new HashMap<>();
 
         long[] wins = countWin(scorePlayerOne, playerOnePosition, scorePlayerTwo, playerTwoPosition, memoizedOutcomes);
         return String.valueOf(Math.max(wins[0], wins[1]));
@@ -83,9 +84,8 @@ public class Day21 extends Day {
      * @param positionOpponent
      * @return first index = player 1 wins, second index = player 2 wins
      */
-    private long[] countWin(int scoreCurrentPlayer, int positionCurrentPlayer, int scoreOpponent, int positionOpponent, Map<int[], long[]> memoized) {
-        int[] input = new int[]{scoreCurrentPlayer, positionCurrentPlayer, scoreOpponent, positionOpponent};
-
+    private long[] countWin(int scoreCurrentPlayer, int positionCurrentPlayer, int scoreOpponent, int positionOpponent, Map<GameState, long[]> memoized) {
+        GameState gameState = new GameState(positionCurrentPlayer, scoreCurrentPlayer, positionOpponent, scoreOpponent);
         if (scoreCurrentPlayer >= 21) {
             return new long[]{1L, 0L};
         }
@@ -94,8 +94,8 @@ public class Day21 extends Day {
             return new long[]{0L, 1L};
         }
 
-        if (memoized.containsKey(input)) {
-            return memoized.get(input);
+        if (memoized.containsKey(gameState)) {
+            return memoized.get(gameState);
         }
 
         long[] result = new long[]{0L, 0L};
@@ -114,7 +114,7 @@ public class Day21 extends Day {
             }
         }
 
-        memoized.put(input, result);
+        memoized.put(gameState, result);
         return result;
     }
 
@@ -133,6 +133,52 @@ public class Day21 extends Day {
                 currentValue = 1;
             }
             return currentValue;
+        }
+    }
+
+    private class GameState {
+        private int playerOnePos;
+        private int playerOneScore;
+        private int playerTwoPos;
+        private int playerTwoScore;
+
+        public GameState(int playerOnePos, int playerOneScore, int playerTwoPos, int playerTwoScore) {
+            this.playerOnePos = playerOnePos;
+            this.playerOneScore = playerOneScore;
+            this.playerTwoPos = playerTwoPos;
+            this.playerTwoScore = playerTwoScore;
+        }
+
+        public void incrementPlayerOneScore(int val) {
+            this.playerOneScore += val;
+        }
+
+        public void incrementPlayerTwoScore(int val) {
+            this.playerTwoScore += val;
+        }
+
+        public void setPlayerOnePos(int playerOnePos) {
+            this.playerOnePos = playerOnePos;
+        }
+
+        public void setPlayerTwoPos(int playerTwoPos) {
+            this.playerTwoPos = playerTwoPos;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            GameState gameState = (GameState) o;
+            return playerOnePos == gameState.playerOnePos &&
+                    playerOneScore == gameState.playerOneScore &&
+                    playerTwoPos == gameState.playerTwoPos &&
+                    playerTwoScore == gameState.playerTwoScore;
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(playerOnePos, playerOneScore, playerTwoPos, playerTwoScore);
         }
     }
 
